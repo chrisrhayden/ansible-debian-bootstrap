@@ -1,7 +1,8 @@
 Ansible Debian/Devuan bootstrap
 ===============================
 
-[![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-HanXHX.debian_bootstrap-blue.svg)](https://galaxy.ansible.com/HanXHX/debian_bootstrap) [![Build Status](https://travis-ci.org/HanXHX/ansible-debian-bootstrap.svg?branch=master)](https://travis-ci.org/HanXHX/ansible-debian-bootstrap)
+FORK from HanXHX/ansible-debian-bootstrap
+
 
 This role bootstraps Debian/Devuan server:
 
@@ -10,11 +11,11 @@ This role bootstraps Debian/Devuan server:
 - Install Intel/AMD microcode if needed
 - Install and configure NTP daemon ([OpenNTPd](http://www.openntpd.org/) or [NTP](http://support.ntp.org/))
 - Add groups, users with SSH key, sudoers
-- Deploy bashrc, vimrc for root
+- CHANGED: Deploy bashrc, vimrc for SKEL
 - Update few alternatives
 - Configure system: hostname, timezone and locale
 - Purge, delete and avoid systemd if wanted
-- Sysctl tuning
+- REMOVED: Sysctl tuning
 
 Supported versions
 
@@ -55,10 +56,12 @@ Theses variables define hostname to configure APT (normal repo and backports):
 - `dbs_default_locale`: default system locale
 - `dbs_locales`: list of installed locales
 - `dbs_timezone`: system timezone. If you need a "standard" timezone like UTC, you must use prefix "Etc/" (ex: "Etc/UTC")
-- `dbs_sysctl_config`: hash of kernel parameters, see: [default/main.yml](default/main.yml)
 - `dbs_use_systemd`: delete systemd if set to false (persistent)
 - `dbs_use_dotfiles`: overwrite root dotfiles (bashrc, screenrc, vimrc)
 - `dbs_uninstall_packages`: packages list to uninstall
+
+removed
+- `dbs_sysctl_config`: hash of kernel parameters, see: [default/main.yml](default/main.yml)
 
 ### Alternatives
 
@@ -70,7 +73,7 @@ Theses variables define hostname to configure APT (normal repo and backports):
 - `dbs_ntp_hosts`: hostnames NTP server list
 - `dbs_ntp_pkg`: package used to provide NTP: "openntpd" or "ntp"
 
-### Group
+### Groups to add
 
 - `dbs_groups`: list of group
 
@@ -83,7 +86,7 @@ Each row have few keys:
 (M) Mandatory
 (O) Optionnal
 
-### User
+### Users to add
 
 - `dbs_users`: list of user
 
