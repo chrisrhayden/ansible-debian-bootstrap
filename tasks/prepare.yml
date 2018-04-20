@@ -8,3 +8,15 @@
 - name: SET_FACT | Is docker?
   set_fact:
     dbs_is_docker: "{{ false if ansible_virtualization_type is not defined or ansible_virtualization_type != 'docker' else true }}"
+
+- name: COPY | dotfiles to skel
+  copy:
+    src: "{{ item }}"
+    dest: "/etc/skel/.{{ item }}"
+  with_items:
+    - "bashrc"
+    - "vimrc"
+    - "gitconfig"
+  when: dbs_use_dotfiles
+
+

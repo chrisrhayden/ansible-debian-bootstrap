@@ -9,24 +9,3 @@
   alternatives:
     name: awk
     path: "{{ dbs_alternative_awk }}"
-
-- name: COPY | dotfiles for root
-  copy:
-    src: "{{ item }}"
-    dest: "/etc/skel/.{{ item }}"
-  with_items:
-    - "bashrc"
-    - "vimrc"
-    - "screenrc"
-    - "gitconfig"
-  when: dbs_use_dotfiles
-
-  # leave all tuning to different play books
-  # - name: SYSCTL | Tuning
-  #   sysctl:
-  #     name: "{{ item.key }}"
-  #     value: "{{ item.value }}"
-  #     sysctl_file: /etc/sysctl.d/ansible.conf
-  #     state: present
-  #   with_dict: "{{ dbs_sysctl_config }}"
-  #   when: not dbs_is_docker

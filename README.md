@@ -166,3 +166,12 @@ Author Information
 ------------------
 
 - Twitter: [@hanxhx_](https://twitter.com/hanxhx_)
+
+
+change:
+instead of copying dot files to root copy them to skel
+
+removed all sys tuning as i want other play books to do that
+
+changing language to make more sens to me
+
