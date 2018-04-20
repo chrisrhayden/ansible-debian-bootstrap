@@ -1,6 +1,6 @@
 ---
 
-- name: GROUP | Add groups to the system
+- name: GROUP | Add specified groups to the system
   group:
     name: "{{ item.name }}"
     system: "{{ item.system | default('no') }}"
@@ -8,7 +8,7 @@
     - "{{ dbs_groups }}"
   when: item.state is not defined or item.state == 'present'
 
-- name: USER | Add users to the system
+- name: USER | Add  specified users to the system
   user:
     name: "{{ item.name }}"
     shell: "{{ item.shell | default(omit) }}"
@@ -49,7 +49,7 @@
       skip_missing: true
   when: item.0.state is not defined or item.0.state == 'present'
 
-- name: TEMPLATE | Create sudoers file
+- name: TEMPLATE | Create sudoers file for specified users
   template:
     src: etc/sudoers.d/ansible.j2
     dest: /etc/sudoers.d/ansible

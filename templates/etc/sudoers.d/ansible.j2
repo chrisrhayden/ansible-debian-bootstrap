@@ -4,7 +4,7 @@
 
 {% for i in dbs_users %}
 {% if i.sudo is defined and i.sudo %}
-{{ i.name }} ALL=(ALL) NOPASSWD: ALL
+{{ i.name }} ALL=(ALL)
 {% endif %}
 {% endfor %}
 

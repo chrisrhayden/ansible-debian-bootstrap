@@ -1,4 +1,174 @@
-" {{ ansible_managed }} 
-syntax on
-set bg=dark
-set mouse=
+" ~/.vimrc
+" basic vim behavior
+"""""""""""""""""""""""""""""""""""""""""
+" how vim encodes and saves files
+set encoding=utf-8
+set fileformat=unix
+" make a temporary backup before overwriting a file
+set writebackup
+" the // at the end makes vim use unique / full path backups
+" old ~/.vim-tmp,~/.tmp,~/tmp,./tmp,/var/tmp,/tmp
+set backupdir=~/tmp/vim//,/tmp//
+" set the swap directory, idk why its just directory
+set directory=~/tmp/vim//,/tmp//
+" where to add personal words from zg and zw
+set spellfile=~/.config/nvim/spell/code-en.utf-8.add
+" redraw only when we need to
+set lazyredraw
+" make fasterish I guess, send more things to be redrawn??
+set ttyfast
+
+" look and feel
+"""""""""""""""""""""""""""""""""""""""""
+" feel / editing
+"""""""""""""""""
+" generic indenting from line above, (v)
+set autoindent
+" insert spaces instead of a tab
+set expandtab
+" spaces tab counts for when editing, if expandtab is set vim will use the
+" appropriate amount of spaces, with out any tabs
+set softtabstop=4
+" what auto indent uses i.g. >>
+set shiftwidth=4
+" insert according to shiftwidth
+set smarttab
+" set backspace through all
+set backspace=indent,eol,start
+
+" minimum lines to keep above and below the cursor
+set scrolloff=2
+" turn on spell checking, TODO: add thesaurus file
+set spell
+set spelllang=en_us
+" remove octal numbers from C-a / C-x
+" set nrformats-=octal
+" no bell
+" set belloff=all
+" adding j, remove comment when using J
+set formatoptions=tcqj
+
+" basic look
+""""""""""""""
+" visually break lines what ever breakat is instead of last fitting character
+set linebreak
+" show match as characters are entered for search
+set incsearch
+" highlight all matches, :nohlsearch to turn off or make key command
+set hlsearch
+" highlight current line
+set cursorline
+" highlight column 80 and 100
+set colorcolumn=80,100
+" always show the statusline
+set laststatus=2
+" the status line conf
+set statusline=%n\ %t\ %m\ %r\ \%=\ %y\ \ [%l/%L]\ %P
+" TODO: add files like node_modules to wildignore
+" show possible completions above the ex / command line
+set wildmenu
+" show the line numbers on the left side.
+set number
+" show numbers relative to cursor
+set relativenumber
+" turn off relativenumber in insert mode
+augroup NumberInsert
+    autocmd!
+    autocmd InsertEnter * :set norelativenumber
+    autocmd InsertEnter * :set number
+    autocmd InsertLeave * :set relativenumber
+augroup END
+
+" set default directions for splits
+set splitbelow
+" set splitright
+
+" enable folding
+set foldenable
+" fold based on indent level
+set foldmethod=indent
+" what level to start folds, all closed 0, all open 99
+set foldlevelstart=10
+" 10 nested fold max
+set foldnestmax=10
+
+" set the height for current windows
+set winheight=30
+
+" turn on list mode
+set list
+" show the characters following the : in list mode
+set listchars=tab:>-,trail:·,extends:>,precedes:<,nbsp:+
+
+" color scheme
+""""""""""""""""
+" syntax highlighting
+syntax enable
+" set colors to be very close to gui vim
+" set termguicolors
+" colorscheme industry
+colorscheme sourcery
+
+" my plugs and source
+"""""""""""""""""""""""""""""""""""""""""
+" file short cuts
+let $doc = "~/Documents"
+
+" mappings
+"""""""""""""""""""""""""""""""""""""""""
+command! CTags !ctags -R .
+command! ClearWhitespace :%s/\s\+$//e
+
+" disable Arrow keys / set to none I guess
+map <up>    <nop>
+map <down>  <nop>
+map <left>  <nop>
+map <right> <nop>
+
+" make ecs escape terminal
+tnoremap <Esc> <C-\><C-n>
+
+" switch buffer
+nnoremap <bs> <C-^>
+
+" window movement
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+" resize with + or _
+nnoremap <silent> ++ :exe "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> +_ :exe "resize " . (winheight(0) * 2/3)<CR>
+" for local window
+nnoremap <space>lc :lclose<CR>
+nnoremap <space>lo :lopen<CR>
+" for anything
+nnoremap <space>cc :close<CR>
+" for scratch window
+nnoremap <space>sc :pclose<CR>
+
+" run make command if any, see makeprog for the program that gets ran
+nnoremap <space>mk :make<CR>
+
+" list buffers
+nnoremap <space>ls :ls<CR>
+
+" turn off search highlight
+nnoremap <space>h :nohlsearch<CR>
+
+" the `` at the end moves the cursor to the stored position
+nnoremap <space>cw :ClearWhitespace<CR>``:nohlsearch<cr>
+
+" highlight last inserted text, gV was taken
+nnoremap gZ `[v`]
+
+" enter a time stamp
+nnoremap <space>da :put =strftime('%F')<CR>A 
+
+" disable EX mode, as I'm a pleb
+nnoremap Q <nop>
+
+" move forward and backward word in insert mode
+imap <C-f> <S-right>
+imap <C-w> <S-right>
+imap <C-b> <S-left>
