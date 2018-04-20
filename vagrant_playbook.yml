@@ -1,0 +1,16 @@
+---
+- name: init debian
+  hosts: all
+  become: true
+  vars:
+    dbs_timezone: 'PTD/UTC'
+
+  # set NA ntp pools
+  dbs_ntp_hosts:
+    - '0.north-america.pool.ntp.org'
+    - '1.north-america.pool.ntp.org'
+    - '2.north-america.pool.ntp.org'
+    - '3.north-america.pool.ntp.org'
+
+  roles:
+    - .
