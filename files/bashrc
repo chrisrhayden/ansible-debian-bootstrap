@@ -6,55 +6,31 @@
 [[ $- != *i* ]] && return
 
 PS1='\[\e[35m\]\W \[\e[34m\]\[▶\e[0m\] '
-OLD_PS1='\[\e[34m\]\[┌─╼\] \[\e[35m\]\w\n\[\e[34m\]\[└──▶\e[0m\] '
 
 # if ssh make ps1 green
 if [[ "$SSH_TTY" ]]; then
-    PS1='\[\e[32m\]\W \[\e[34m\]\[▶\e[0m\] '
-    OLD_PS1='\[\e[32m\]\[┌─╼\] \[\e[35m\]\w\n\[\e[32m\]\[└──▶\]\[\e[0m\] '
+    PS1='\[\e[35m\]\W \[\e[32m\]\[▶\e[0m\] '
 fi
 export PS1 OLD_PS1
 
 # shellcheck source=/dev/null
-{
-[[ -f ~/.dir_colors ]] && eval "$(dircolors -b ~/.dir_colors)"
-
 [[ -f ~/.bashrc.d/proj_completion.bash ]] && \
     source ~/.bashrc.d/proj_completion.bash
-}
 
-# opt program env vars
-# shellcheck disable=2016
-GIT_EDITOR='$EDITOR'
-NLTK_DATA="$HOME/.local/share/nltk_data"
-XDG_CONFIG_HOME="$HOME/.config"
-XDG_DATA_HOME="$HOME/.local/share"
-
-if [[ -f /usr/bin/nvim ]]; then
-    EDITOR='nvim'
-    alias vim='nvim'
-
-elif [[ -f /usr/bin/vim ]]; then
-    unalias vim 2>/dev/null
-    EDITOR='vim'
-
-elif [[ -f /usr/bin/nano ]]; then
-    EDITOR='nano'
-    printf '*vim not installed \n%busing nano \n' '\033[31'
-fi
-
-export EDITOR GIT_EDITOR NLTK_DATA XDG_CONFIG_HOME XDG_DATA_HOME
+alias ls='ls --color'
+alias grep='grep --color'
+alias cp='cp --interactive'
+alias mv='mv --interactive'
 
 # color man pages
-# shellcheck disable=2155
 {
-LESS_TERMCAP_mb=$(printf '\e[01;31m') # enter blinking mode - red
-LESS_TERMCAP_md=$(printf '\e[01;35m') # enter double-bright mode - bold, magenta
-LESS_TERMCAP_me=$(printf '\e[0m') # turn off all appearance modes (mb, md, so, us)
-LESS_TERMCAP_se=$(printf '\e[0m') # leave standout mode
-LESS_TERMCAP_so=$(printf '\e[01;33m') # enter standout mode - yellow
-LESS_TERMCAP_ue=$(printf '\e[0m') # leave underline mode
-LESS_TERMCAP_us=$(printf '\e[04;36m') # enter underline mode - cyan
+LESS_TERMCAP_mb=$(printf '\033[01;31m') # enter blinking mode - red
+LESS_TERMCAP_md=$(printf '\033[01;35m') # enter double-bright mode - bold, magenta
+LESS_TERMCAP_me=$(printf '\033[0m') # turn off all appearance modes (mb, md, so, us)
+LESS_TERMCAP_se=$(printf '\033[0m') # leave standout mode
+LESS_TERMCAP_so=$(printf '\033[01;33m') # enter standout mode - yellow
+LESS_TERMCAP_ue=$(printf '\033[0m') # leave underline mode
+LESS_TERMCAP_us=$(printf '\033[04;36m') # enter underline mode - cyan
 export LESS_TERMCAP_mb LESS_TERMCAP_md LESS_TERMCAP_me LESS_TERMCAP_se
 export LESS_TERMCAP_so LESS_TERMCAP_ue LESS_TERMCAP_us
 }

@@ -8,7 +8,7 @@
     dbs_clean_hosts: false
 
     # sys config
-    dbs_timezone: 'PTD/UTC'
+    dbs_timezone: 'US/Pacific'
 
     # set NA ntp pools
     dbs_ntp_hosts:
