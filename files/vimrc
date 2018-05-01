@@ -106,8 +106,7 @@ set listchars=tab:>-,trail:·,extends:>,precedes:<,nbsp:+
 syntax enable
 " set colors to be very close to gui vim
 " set termguicolors
-" colorscheme industry
-colorscheme sourcery
+colorscheme industry
 
 " my plugs and source
 """""""""""""""""""""""""""""""""""""""""
@@ -124,9 +123,6 @@ map <up>    <nop>
 map <down>  <nop>
 map <left>  <nop>
 map <right> <nop>
-
-" make ecs escape terminal
-tnoremap <Esc> <C-\><C-n>
 
 " switch buffer
 nnoremap <bs> <C-^>
